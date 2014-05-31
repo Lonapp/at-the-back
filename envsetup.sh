@@ -25,7 +25,8 @@ else
             echo "Commands:"
             echo "  serve   Serve the Lon application locally"
             echo "  shell   Runs a Python shell inside Flask application context."
-            echo "  db      Perform database migrations."
+            echo "  dbup    Upgrade db schema to match latest models."
+            echo "  db      Perform database actions."
             echo "  exit    Leave the virtual environment."
             echo "  help    Show this message."
             echo ""
@@ -45,6 +46,9 @@ else
             shell)
                 python app/app.py shell
                 ;;
+            dbup)
+                lon db upgrade
+                ;;
             db)
                 shift
                 python app/app.py db $@
@@ -61,6 +65,11 @@ else
                 ;;
         esac
     }
+
+    if [ ! -d "migrations" ]; then
+        lon db init
+        lon db migrate
+    fi
 
     echo "${_green}Entering Lon virtual environment. Run 'lon' for more information.${_reset}"
 fi
