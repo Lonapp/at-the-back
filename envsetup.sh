@@ -24,6 +24,8 @@ else
             echo ""
             echo "Commands:"
             echo "  serve   Serve the Lon application locally"
+            echo "  shell   Runs a Python shell inside Flask application context."
+            echo "  db      Perform database migrations."
             echo "  exit    Leave the virtual environment."
             echo "  help    Show this message."
             echo ""
@@ -40,9 +42,15 @@ else
             help)
                 lon_usage
                 ;;
+            shell)
+                python app/app.py shell
+                ;;
+            db)
+                python app/app.py db
+                ;;
             serve)
                 echo "${_green}Starting Lon server. Press Ctrl-C to exit.${_reset}"
-                python app/routes.py
+                python app/app.py runserver
                 ;;
             exit)
                 deactivate
