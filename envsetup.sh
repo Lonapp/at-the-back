@@ -46,7 +46,8 @@ else
                 python app/app.py shell
                 ;;
             db)
-                python app/app.py db
+                shift
+                python app/app.py db $@
                 ;;
             serve)
                 echo "${_green}Starting Lon server. Press Ctrl-C to exit.${_reset}"
