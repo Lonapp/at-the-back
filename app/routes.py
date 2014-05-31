@@ -1,10 +1,6 @@
 from flask import Flask
+from flask import current_app
 
-app = Flask(__name__)
-
-@app.route("/")
+@current_app.route("/")
 def index():
     return "Welcome to Lon!"
-
-if __name__ == '__main__':
-    app.run(debug=True)

@@ -1,1 +1,4 @@
+*.pyc
+lon.db
 lon-env/
+migrations/

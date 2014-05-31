@@ -24,6 +24,9 @@ else
             echo ""
             echo "Commands:"
             echo "  serve   Serve the Lon application locally"
+            echo "  shell   Runs a Python shell inside Flask application context."
+            echo "  dbup    Upgrade db schema to match latest models."
+            echo "  db      Perform database actions."
             echo "  exit    Leave the virtual environment."
             echo "  help    Show this message."
             echo ""
@@ -40,9 +43,19 @@ else
             help)
                 lon_usage
                 ;;
+            shell)
+                python app/app.py shell
+                ;;
+            dbup)
+                lon db upgrade
+                ;;
+            db)
+                shift
+                python app/app.py db $@
+                ;;
             serve)
                 echo "${_green}Starting Lon server. Press Ctrl-C to exit.${_reset}"
-                python app/routes.py
+                python app/app.py runserver
                 ;;
             exit)
                 deactivate
@@ -52,6 +65,11 @@ else
                 ;;
         esac
     }
+
+    if [ ! -d "migrations" ]; then
+        lon db init
+        lon db migrate
+    fi
 
     echo "${_green}Entering Lon virtual environment. Run 'lon' for more information.${_reset}"
 fi
