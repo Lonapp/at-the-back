@@ -2,19 +2,14 @@
 
 ## Getting started
 
-#### 1. Install virtualenv
-```
-pip install virtualenv
-```
-
-#### 2. Configure your environment
+#### 1. Configure and Enter your environment
 ```
 source envsetup.sh
 ```
 > Note: This will take a moment to install dependencies.
 > This will only happen once
 
-#### 3. Start developing
+#### 2. Start developing
 Running `lon` will list useful tools.
 
 Issues should be reported to https://github.com/lonapp/server/issues.
