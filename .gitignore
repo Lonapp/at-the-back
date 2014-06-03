@@ -2,3 +2,6 @@
 lon.db
 lon-env/
 migrations/
+build/
+Vagrantfile
+.vagrant/

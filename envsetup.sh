@@ -10,11 +10,13 @@ else
         eval "virtualenv --no-site-packages --distribute ${LON_ENV}"
     fi
 
+    echo "Activating ${LON_ENV}"
     source ${LON_ENV}/bin/activate
+    echo "$(which pip)"
     pip install -qr ${REQUIREMENTS_FILE}
 
-    _green='\e[0;32m'
-    _reset='\e[0m'
+    _green=''
+    _reset=''
 
     function lon()
     {
@@ -55,7 +57,7 @@ else
                 ;;
             serve)
                 echo "${_green}Starting Lon server. Press Ctrl-C to exit.${_reset}"
-                python app/app.py runserver
+                python app/app.py runserver -h 0.0.0.0
                 ;;
             exit)
                 deactivate
