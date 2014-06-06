@@ -8,8 +8,13 @@
 from flask import g
 
 db = getattr(g, 'db', None)
+message_len = 500
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(128))
 
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    message = db.Column(db.String(message_len))
+	user_id = Column(Integer, ForeignKey('User.id'))
