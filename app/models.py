@@ -8,6 +8,7 @@
 from flask import g
 
 db = getattr(g, 'db', None)
+message_len = 500
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -15,7 +16,4 @@ class User(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    message = db.Column(db.String(500))
-    timePosted = db.Column(db.DateTime)
-    numOfLonnedPosts = db.Column(db.Integer)
-    isLonned = db.column(db.Boolean)
+    message = db.Column(db.String(message_len))
