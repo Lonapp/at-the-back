@@ -12,7 +12,6 @@ else
 
     echo "Activating ${LON_ENV}"
     source ${LON_ENV}/bin/activate
-    echo "$(which pip)"
     pip install -qr ${REQUIREMENTS_FILE}
 
     _green=''
