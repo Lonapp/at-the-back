@@ -5,3 +5,5 @@ migrations/
 build/
 Vagrantfile
 .vagrant/
+.DS_Store
+app/.DS_Store
