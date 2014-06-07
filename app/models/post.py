@@ -13,3 +13,16 @@ class Post(db.Model):
 	
     id = db.Column(db.Integer, primary_key = True)
     message = db.Column(db.String(message_len))
+
+	def __init__(self, id, message):
+		self.id = id
+		self.message = message
+	
+	def __repr__(self):
+		return "<Post: %r>" % self.message
+	
+	def getMessage():
+		return self.message
+	
+	def setMessage(newMessage):
+		self.message = newMessage
