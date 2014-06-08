@@ -12,7 +12,6 @@ else
 
     echo "Activating ${LON_ENV}"
     source ${LON_ENV}/bin/activate
-    echo "$(which pip)"
     pip install -qr ${REQUIREMENTS_FILE}
 
     _green=''
@@ -46,18 +45,11 @@ else
                 lon_usage
                 ;;
             shell)
-                python app/app.py shell
-                ;;
-            dbup)
-                lon db upgrade
-                ;;
-            db)
-                shift
-                python app/app.py db $@
+                python run.py shell
                 ;;
             serve)
-                echo "${_green}Starting Lon server. Press Ctrl-C to exit.${_reset}"
-                python app/app.py runserver -h 0.0.0.0
+                echo "Starting Lon server. Press Ctrl-C to exit."
+                python run.py
                 ;;
             exit)
                 deactivate
@@ -73,5 +65,5 @@ else
         lon db migrate
     fi
 
-    echo "${_green}Entering Lon virtual environment. Run 'lon' for more information.${_reset}"
+    echo "Entering Lon virtual environment. Run 'lon' for more information."
 fi
