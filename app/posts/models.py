@@ -47,3 +47,93 @@ class Post(Base):
 
     def set_message(new_message):
         self.message = new_message
+	
+	def getTimePosted():
+		#return time and date
+		pass
+	
+	def setTimePosted(timePosted):
+		#void
+		pass
+	
+	def getUser():
+		#void
+		pass
+
+	def getColor():
+		#void
+		pass
+	
+	def setColor(color):
+		#return type bool
+		pass
+	
+	def addComment(comm):
+		#return type bool
+		pass
+	
+	def getComment(limit = 2):
+		#return type Comment
+		pass
+	
+	def getAllComments():
+		#return type Comment
+		pass
+	
+	def getLonnedPosts():
+		#return type Post
+		pass
+	
+	def hasImage():
+		#return type bool
+		pass
+	
+	def getImage():
+		#return type Picture
+		pass
+	
+	def setImage(caption, pic):
+		#return type bool
+		pass
+	
+	def getNumOfLonnedPosts():
+		#return type int
+		return 2
+	
+	def setNumOfLonnedPosts(NumOfLonnedPosts):
+		#void
+		NumOfLonnedPosts = 2
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
