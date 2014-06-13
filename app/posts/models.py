@@ -19,6 +19,10 @@ class Base(db.Model):
     date_created = db.Column(db.DateTime,  default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
+    def __init__(self,date_created, date_modified):
+    	self.date_created = date_created
+    	self.date_modified = date_modified
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -26,9 +30,8 @@ class Base(db.Model):
     @property
     def json(self):
         return { 'id':              str(self.id)
-               , 'message':         str(self.message)
-               , 'date_created':    str(self.date_created)
-               , 'date_modified':   str(self.date_modified)
+               , 'date_created':    str(self.date_created)  #removed the message var since self doesn't have 
+               , 'date_modified':   str(self.date_modified) # a message property
                }
 
 class Post(Base):
@@ -47,88 +50,64 @@ class Post(Base):
 
     def set_message(new_message):
         self.message = new_message
-	
-	def getTimePosted():
-		#return time and date
-		pass
-	
-	def setTimePosted(timePosted):
-		#void
-		pass
-	
-	def getUser():
-		#void
-		pass
+        self.save()
 
-	def getColor():
-		#void
-		pass
-	
-	def setColor(color):
-		#return type bool
-		pass
-	
-	def addComment(comm):
-		#return type bool
-		pass
-	
-	def getComment(limit = 2):
-		#return type Comment
-		pass
-	
-	def getAllComments():
-		#return type Comment
-		pass
-	
-	def getLonnedPosts():
-		#return type Post
-		pass
-	
-	def hasImage():
-		#return type bool
-		pass
-	
-	def getImage():
-		#return type Picture
-		pass
-	
-	def setImage(caption, pic):
-		#return type bool
-		pass
-	
-	def getNumOfLonnedPosts():
-		#return type int
-		return 2
-	
-	def setNumOfLonnedPosts(NumOfLonnedPosts):
-		#void
-		NumOfLonnedPosts = 2
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    def getTimePosted():
+        #return time and date
+        pass
+
+    def setTimePosted(timePosted):
+        #void
+        pass
+
+    def getUser():
+        #void
+        pass
+
+    def getColor():
+        #void
+        pass
+
+    def setColor(color):
+        #return type bool
+        pass
+
+    def addComment(comm):
+        #return type bool
+        pass
+
+    def getComment(limit = 2):
+        #return type Comment
+        pass
+
+    def getAllComments():
+        #return type Comment
+        pass
+
+    def getLonnedPosts():
+        #return type Post
+        pass
+
+    def hasImage():
+        #return type bool
+        pass
+
+    def getImage():
+        #return type Picture
+        pass
+
+    def setImage(caption, pic):
+        #return type bool
+        pass
+
+    def getNumOfLonnedPosts():
+        #return type int
+        return 2
+
+    def setNumOfLonnedPosts(NumOfLonnedPosts):
+        #void
+        NumOfLonnedPosts = 2
+
 
 
 
