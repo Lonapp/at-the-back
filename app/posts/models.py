@@ -9,32 +9,10 @@
 from json import dumps
 
 from app import db
+from app.base.models import baseModel
 
 MESSEGE_LEN = 500
-
-class Base(db.Model):
-    __abstract__  = True
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime,  default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
-
-    def __init__(self,date_created, date_modified):
-    	self.date_created = date_created
-    	self.date_modified = date_modified
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @property
-    def json(self):
-        return { 'id':              str(self.id)
-               , 'date_created':    str(self.date_created)  #removed the message var since self doesn't have 
-               , 'date_modified':   str(self.date_modified) # a message property
-               }
-
-class Post(Base):
+class Post(baseModel):
     __tablename__ = "posts"
 
     message = db.Column(db.String(MESSEGE_LEN))
