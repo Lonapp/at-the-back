@@ -16,9 +16,15 @@ class Post(baseModel):
     __tablename__ = "posts"
 
     message = db.Column(db.String(MESSEGE_LEN))
+    # isLonnedPost is null if Post is original and has an ID if it was lonned from another post
+    isLonnedPost = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
+    numOfPostsLonned = db.Column(db.Integer)
 
-    def __init__(self, message):
+    def __init__(self, message,isLonnedPost, numOfPostsLonned):
         self.message = message
+        self.isLonnedPost = isLonnedPost
+        self.numOfPostsLonned = numOfPostsLonned
 
     def __repr__(self):
         return self.json
@@ -80,11 +86,15 @@ class Post(baseModel):
 
     def getNumOfLonnedPosts():
         #return type int
-        return 2
+        return self.NumOfLonnedPosts
 
     def setNumOfLonnedPosts(NumOfLonnedPosts):
         #void
-        NumOfLonnedPosts = 2
+        self.numOfPostsLonned = NumOfLonnedPosts
+
+    def isLonnedPost():
+        #returns a null if Original Post and Post id if yes
+        return self.isLonnedPost
 
 
 
