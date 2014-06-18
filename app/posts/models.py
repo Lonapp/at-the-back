@@ -9,10 +9,10 @@
 from json import dumps
 
 from app import db
-from app.base.models import baseModel
+from app.base.models import BaseModel
 
 MESSEGE_LEN = 500
-class Post(baseModel):
+class Post(BaseModel):
     __tablename__ = "posts"
 
     message = db.Column(db.String(MESSEGE_LEN))
