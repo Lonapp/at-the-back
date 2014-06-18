@@ -13,10 +13,12 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 # Include modules
+from app.base.controllers import BaseModel as base_module
 from app.posts.controllers import posts as posts_module
 from app.users.controllers import users as users_module
 
 # Register modules
+#app.register_blueprint(base_module)
 app.register_blueprint(posts_module)
 app.register_blueprint(users_module)
 
