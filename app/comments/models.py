@@ -29,8 +29,9 @@ class Comment(BaseModel):
 
     @property
     def json(self):
-        return { "message": str(self.message)
-               , "voteCount": str(self.voteCount)
+        return { "id" : str(self.object_id),
+                "message": str(self.message),
+                "voteCount": str(self.voteCount)
                }
 
     def getMessage():

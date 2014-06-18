@@ -31,7 +31,7 @@ class Post(BaseModel):
 
     @property
     def json(self):
-        return { 'id':                  str(self.id)
+        return { 'id':                  str(self.object_id)
                , 'date_created':        str(self.date_created)
                , 'date_modified':       str(self.date_modified)
                , 'message':             str(self.message)
