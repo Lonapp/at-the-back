@@ -21,22 +21,22 @@ class Post(BaseModel):
     #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
     numOfPostsLonned = db.Column(db.Integer)
 
-    def __init__(self, message,isLonnedPost, numOfPostsLonned):
+    def __init__(self, message, isLonnedPost = False):
         self.message = message
         self.isLonnedPost = isLonnedPost
-        self.numOfPostsLonned = numOfPostsLonned
+        self.numOfPostsLonned = 0
 
     def __repr__(self):
-        return self.json
+        return ""
 
     @property
     def json(self):
-        return { 'id':              str(self.id)
-               , 'date_created':    str(self.date_created)
-               , 'date_modified':   str(self.date_modified)
-               , 'message':   str(self.message)
-               , 'is_lonned_post':   str(self.isLonnedPost)
-               , 'num_of_posts_lonned':   str(self.numOfPostsLonned)
+        return { 'id':                  str(self.id)
+               , 'date_created':        str(self.date_created)
+               , 'date_modified':       str(self.date_modified)
+               , 'message':             str(self.message)
+               , 'is_lonned_post':      str(self.isLonnedPost)
+               , 'num_of_posts_lonned': str(self.numOfPostsLonned)
                }
 
     def get_message():
@@ -45,7 +45,6 @@ class Post(BaseModel):
     def set_message(new_message):
         self.message = new_message
         self.save()
-
 
     def getUser():
         #void
@@ -98,10 +97,4 @@ class Post(BaseModel):
     def isLonnedPost():
         #returns a null if Original Post and Post id if yes
         return self.isLonnedPost
-
-
-
-
-
-
 
