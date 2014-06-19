@@ -11,7 +11,13 @@ else
     fi
 
     echo "Activating ${LON_ENV}"
-    source ${LON_ENV}/bin/activate
+
+    if [ -f ${LON_ENV}/bin/activate ]; then 
+        source ${LON_ENV}/bin/activate
+    else 
+        source ${LON_ENV}/Scripts/activate #windows
+    fi
+
     pip install -qr ${REQUIREMENTS_FILE}
 
     _green=''
