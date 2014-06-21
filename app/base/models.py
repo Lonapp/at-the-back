@@ -8,7 +8,8 @@
 
 from json import dumps
 
-from app import db
+from app import db, graph_db
+from time import time
 
 class BaseModel(db.Model):
     __abstract__  = True
@@ -38,4 +39,27 @@ class BaseModel(db.Model):
                , 'date_modified':   str(self.date_modified)
                }
 
+class BaseNode():
+    attr = ('date_created',)
 
+    def __init__(self,**kwargs):
+        # optional argument:
+        if 'date_created' not in kwargs: kwargs['date_created'] = time()
+
+        # set a keyworded arg as a class attribute if present in self.attr
+        for i in self.attr:
+            if i in kwargs: setattr(self,i,kwargs[i])
+
+    @classmethod
+    def fromNode(cls, node):
+        # passes node properties as keyworded args to __init__, creating a new instance
+        u = cls(**node._properties)
+        u.node = node
+        return u
+
+    def save(self):
+        # if a node already exists for the instance in the DB
+        if hasattr(self,'node'):
+            self.node.setProperties(dict([(i,self.node[i]) for i in self.attr]))
+        else:
+            self.node, = graph_db.create(dict([(i,getattr(self,i)) for i in self.attr]))

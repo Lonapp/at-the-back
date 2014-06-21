@@ -10,6 +10,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'lon.db')
 DATABASE_CONNECT_OPTIONS = {}
 
+NEO4J_DATABASE_URI = 'http://localhost:7474/db/data/'
+
+UID_START = 100000000000
+UID_END   = 999999999999
+
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
 # incoming requests using one and performing background
