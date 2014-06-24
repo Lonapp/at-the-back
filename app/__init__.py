@@ -21,12 +21,14 @@ from app.base.controllers import BaseModel as base_module
 from app.posts.controllers import posts as posts_module
 from app.users.controllers import users as users_module
 from app.comments.controllers import comments as comments_module
+from app.colors.controllers import colors as colors_module
 
 # Register modules
 #app.register_blueprint(base_module)
 app.register_blueprint(posts_module)
 app.register_blueprint(users_module)
 app.register_blueprint(comments_module)
+app.register_blueprint(colors_module)
 
 # This will create the database file
 db.create_all()
