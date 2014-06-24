@@ -7,19 +7,24 @@
 # users/models.py
 #
 
-from app import db
+from app import graph_db
+from app.base.models import BaseNode
+from datetime import datetime
 
-# TODO: Abstract these Base models to app.base.model or something
-class Base(db.Model):
-    __abstract__  = True
+class User(BaseNode):
+    attr = BaseNode.attr + ('userid', 'username','realname','email','password','phone')
 
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime,  default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    def __init__(self, **kwargs):
+        # optional argument
+        if 'userid' not in kwargs: kwargs['userid'] = -1
+        BaseNode.__init__(self, **kwargs)
 
-class User(Base):
-    __tablename__ = "users"
+    def save(self):
+        BaseNode.save(self)
+        self.node.add_labels("User")
 
-    id = db.Column(db.Integer, primary_key = True)
-    email = db.Column(db.String(128))
-    password = db.Column(db.String(40)) #TODO encrypt
+    def __repr__(self):
+        return ("%d %s %s (%s)") % (self.userid, self.username, self.email, datetime.fromtimestamp(self.date_created))
+
+    def __str__(self):
+        return ("%d %s %s (%s)") % (self.userid, self.username, self.email, datetime.fromtimestamp(self.date_created))
