@@ -28,3 +28,17 @@ class User(BaseNode):
 
     def __str__(self):
         return ("%d %s %s (%s)") % (self.userid, self.username, self.email, datetime.fromtimestamp(self.date_created))
+
+    #Flask-Login methods:
+
+    def is_active(self):
+        return True
+
+    def is_authenticated(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.userid
