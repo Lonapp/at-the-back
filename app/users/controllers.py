@@ -1,11 +1,26 @@
 from flask import Blueprint, request, redirect, url_for
 
-from app import db, graph_db, app
+from app import db, graph_db, app, login_manager
 from app.users.models import User
 from random import randint
 from hashlib import sha256
 
 users = Blueprint('users', __name__, url_prefix='/users')
+
+@login_manager.user_loader
+def getUserByID(userid):
+    l = list(graph_db.find("User","userid",userid))
+    if len(l) == 1: return User.fromNode(l[0])
+    else: return None
+
+def getUserByUsername(username):
+    l = list(graph_db.find("User","username",username))
+    if len(l) == 1: return User.fromNode(l[0])
+    else: return None
+
+# todo: implement something more secure (salting, etc..)
+def hash_pw(pw):
+    return sha256(pw).hexdigest()
 
 @users.route('/get', methods = ['GET'])
 def get():
@@ -38,7 +53,7 @@ def create():
         u = User(username=request.args['username'],
                  realname=request.args['realname'],
                  email=request.args['email'],
-                 password=sha256(request.args['pw']).hexdigest(),
+                 password=hash_pw(request.args['pw']),
                  phone=request.args['phone'])
 
         while True:
