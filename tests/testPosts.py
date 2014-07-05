@@ -1,42 +1,43 @@
 #This is a test file for the model posts, for each method created in posts we
 #will create automatic tests that run here using nose. 
 from flask import Flask, current_app
-import os, sys, unittest, inspect
+import os, sys, inspect
+import unittest, urllib2, urllib, json
+
+from flask.ext.testing import LiveServerTestCase
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 os.sys.path.insert(0,parentdir)
 
-from app.posts.models import Post
-from app import db
+from app import app
 
-class TestPosts(unittest.TestCase):
+class TestPosts(LiveServerTestCase):
     """ Tests the module 'Posts' """
 
-    def SetUp(self):
-        """Does a setup for the testing in the file."""
+    def create_app(self):
 
-        self.app = Flask(__name__)
-        db.init_app(current_app)
-        with self.app.app_context():
-            current_app.config['Testing'] = True
-            db.create_all()
+        app.config['TESTING'] = True
+        app.config['LIVESERVER_PORT'] = 5000
+        #We will need to reset the db everytime we test
+        return app
 
-    def tearDown(self):
-        """Ensures that database is emptied for next time"""
+    def test_url_works(self):
+        url = self.get_server_url() + '/posts/'
+        response = urllib2.urlopen(url)
+        self.assertEqual(response.code,200)
 
-        self.app = Flask(__name__)
-        db.init_app(current_app)
-        with self.app.app_context():
-            db.drop_all()
+    def test_add_posts(self):
+        url = self.get_server_url() + '/posts/'
+        values = {'message': 'First Post Eva'}
 
+        data = urllib.urlencode(values)
+        req = urllib2.Request(url, data)
+        response = urllib2.urlopen(req)
+        responseJson = json.load(response)
 
-    def test_app(self):
-        with self.app.app_context():
-            assert(True)
-
-    def test_full(self):
-        assert(False)
+        self.assertEqual(responseJson['message'],'First Post Eva')
+        self.assertEqual(response.code,200)
 
 
 
