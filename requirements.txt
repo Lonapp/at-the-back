@@ -12,3 +12,4 @@ alembic==0.6.5
 itsdangerous==0.24
 wsgiref==0.1.2
 py2neo==1.6.4
+Flask-Testing==0.4.1

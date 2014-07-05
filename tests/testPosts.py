@@ -8,18 +8,36 @@ parentdir = os.path.dirname(currentdir)
 os.sys.path.insert(0,parentdir)
 
 from app.posts.models import Post
+from app import db
 
 class TestPosts(unittest.TestCase):
+    """ Tests the module 'Posts' """
 
     def SetUp(self):
-        app = Flask(__name__)
-        with app.app_context():
+        """Does a setup for the testing in the file."""
+
+        self.app = Flask(__name__)
+        db.init_app(current_app)
+        with self.app.app_context():
             current_app.config['Testing'] = True
-            return current_app
+            db.create_all()
+
+    def tearDown(self):
+        """Ensures that database is emptied for next time"""
+
+        self.app = Flask(__name__)
+        db.init_app(current_app)
+        with self.app.app_context():
+            db.drop_all()
 
 
     def test_app(self):
-        assert(True)
+        with self.app.app_context():
+            assert(True)
+
+    def test_full(self):
+        assert(False)
+
 
 
 if __name__ == "__main__":
