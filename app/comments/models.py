@@ -12,12 +12,14 @@ from app.base.models import BaseModel
 MESSEGE_LEN = 250
 class Comment(BaseModel):
     __tablename__ = "comments"
-
-    message = db.Column(db.String(MESSEGE_LEN))
-
+    
     #not sure about BigInteger. I think it is similar to
     #long int, but may want to double check. Also, we may
     #need to add a foreign key for this.
+    message = db.Column(db.String(MESSEGE_LEN))
+    post = db.Column(db.BigInteger, primary_key=True)
+    color = db.Column(db.BigInteger)
+    user = db.Column(db.BigInteger)
     voteCount = db.Column(db.BigInteger)
 
     def __init__(self, message):
@@ -29,8 +31,11 @@ class Comment(BaseModel):
 
     @property
     def json(self):
-        return { "id" : str(self.object_id),
+        return {"id" : str(self.object_id),
+                "post": str(self.post),
                 "message": str(self.message),
+                "color": str(self.color),
+                "user": str(self.user),
                 "voteCount": str(self.voteCount)
                }
 
@@ -55,9 +60,10 @@ class Comment(BaseModel):
         return True
 
     def getColor():
-        #return color
-        pass
+        return self.color
 
     def getUser():
-        #return user
-        pass
+        return self.user
+
+    def getPost():
+        return self.post
