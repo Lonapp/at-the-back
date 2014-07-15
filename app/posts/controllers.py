@@ -14,6 +14,12 @@ posts = Blueprint('posts', __name__, url_prefix='/posts')
 def index():
     return json.dumps([i.json for i in Post.query.all()])
 
+@posts.route('/<post_id>', methods = ['GET'])
+def getPost(post_id):
+    #db.session.query()
+    return json.dumps([i.json for i in Post.query(Post).get(post_id)])
+
+
 @posts.route('/', methods = ['POST'])
 def store():
     # Create new post
