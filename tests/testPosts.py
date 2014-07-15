@@ -27,7 +27,7 @@ class TestPosts(LiveServerTestCase):
         response = urllib2.urlopen(url)
         self.assertEqual(response.code,200)
 
-    def test_add_posts(self):
+    def test_add_get_posts(self):
         url = self.get_server_url() + '/posts/'
         values = {'message': 'First Post Eva'}
 
@@ -38,6 +38,16 @@ class TestPosts(LiveServerTestCase):
 
         self.assertEqual(responseJson['message'],'First Post Eva')
         self.assertEqual(response.code,200)
+
+        TheID = responseJson['id']
+        
+        url = self.get_server_url() + '/posts/' + str(TheID)
+        response = urllib2.urlopen(req)
+        responseJson = json.load(response)
+
+        self.assertEqual(responseJson['message'],'First Post Eva')
+        self.assertEqual(response.code,200)
+
 
 
 
