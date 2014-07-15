@@ -40,7 +40,7 @@ class TestPosts(LiveServerTestCase):
         self.assertEqual(response.code,200)
 
         TheID = responseJson['id']
-        
+
         url = self.get_server_url() + '/posts/' + str(TheID)
         response = urllib2.urlopen(req)
         responseJson = json.load(response)
