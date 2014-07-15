@@ -18,8 +18,8 @@ class Comment(BaseModel):
     #need to add a foreign key for this.
     message = db.Column(db.String(MESSEGE_LEN))
     post = db.Column(db.BigInteger, primary_key=True)
+    user = db.Column(db.BigInteger, primary_key=True)
     color = db.Column(db.BigInteger)
-    user = db.Column(db.BigInteger)
     voteCount = db.Column(db.BigInteger)
 
     def __init__(self, message):

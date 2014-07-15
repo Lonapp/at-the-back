@@ -15,6 +15,7 @@ MESSEGE_LEN = 500
 class Post(BaseModel):
     __tablename__ = "posts"
 
+    object_id = db.Column('id', db.Integer, primary_key=True)
     message = db.Column(db.String(MESSEGE_LEN))
     # isLonnedPost is null if Post is original and has an ID if it was lonned from another post
     isLonnedPost = db.Column(db.Integer, db.ForeignKey('posts.id'))

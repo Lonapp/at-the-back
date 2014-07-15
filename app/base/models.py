@@ -14,7 +14,6 @@ from time import time
 class BaseModel(db.Model):
     __abstract__  = True
 
-    object_id = db.Column('id', db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime,  default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
