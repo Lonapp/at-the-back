@@ -18,13 +18,13 @@ class Post(BaseModel):
     object_id = db.Column('id', db.Integer, primary_key=True)
     message = db.Column(db.String(MESSEGE_LEN))
     # isLonnedPost is null if Post is original and has an ID if it was lonned from another post
-    isLonnedPost = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    LonnedPostsID = db.Column(db.Integer, db.ForeignKey('posts.id'))
     #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
     numOfPostsLonned = db.Column(db.Integer)
 
     def __init__(self, message, isLonnedPost = False):
         self.message = message
-        self.isLonnedPost = isLonnedPost
+        self.LonnedPostsID = LonnedPostsID
         self.numOfPostsLonned = 0
 
     def __repr__(self):
@@ -36,7 +36,7 @@ class Post(BaseModel):
                , 'date_created':        str(self.date_created)
                , 'date_modified':       str(self.date_modified)
                , 'message':             str(self.message)
-               , 'is_lonned_post':      str(self.isLonnedPost)
+               , 'Lonned_Posts_Id':      str(self.LonnedPostsID)
                , 'num_of_posts_lonned': str(self.numOfPostsLonned)
                }
 
@@ -95,7 +95,7 @@ class Post(BaseModel):
         #void
         self.numOfPostsLonned = NumOfLonnedPosts
 
-    def isLonnedPost():
+    def getLonnedPostsID():
         #returns a null if Original Post and Post id if yes
-        return self.isLonnedPost
+        return self.LonnedPostsID
 
