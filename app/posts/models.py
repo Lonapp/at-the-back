@@ -17,15 +17,18 @@ class Post(BaseModel):
 
     object_id = db.Column('id', db.Integer, primary_key=True)
     message = db.Column(db.String(MESSEGE_LEN))
-    # isLonnedPost is null if Post is original and has an ID if it was lonned from another post
-    LonnedPostsID = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
-    numOfPostsLonned = db.Column(db.Integer)
 
-    def __init__(self, message, isLonnedPost = False):
+    # OriginalPost is null if Post is original and has an ID if it was lonned from another post
+    # Do post have an original post?
+    originalPost = db.Column(db.Integer, db.ForeignKey('posts.id'))
+
+    #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
+    numOfShares = db.Column(db.Integer)
+
+    def __init__(self, message, originalPost = None):
         self.message = message
-        self.LonnedPostsID = LonnedPostsID
-        self.numOfPostsLonned = 0
+        self.originalPost = originalPost
+        self.numOfShares = 0
 
     def __repr__(self):
         return ""
@@ -73,7 +76,17 @@ class Post(BaseModel):
 
     def getLonnedPosts():
         #return type Post
-        pass
+        LonnedPosts = []
+        if self.numOfShares != 0:
+            #try self.query
+            LonnedPosts = db.session.query.filter(LonnedPostsID != null).all()
+            return LonnedPosts
+        else:
+            return LonnedPosts
+
+    def sharePost():
+        self.numOfShares += 1
+        return self
 
     def hasImage():
         #return type bool
@@ -87,15 +100,7 @@ class Post(BaseModel):
         #return type bool
         pass
 
-    def getNumOfLonnedPosts():
+    def getNumOfShares():
         #return type int
-        return self.NumOfLonnedPosts
-
-    def setNumOfLonnedPosts(NumOfLonnedPosts):
-        #void
-        self.numOfPostsLonned = NumOfLonnedPosts
-
-    def getLonnedPostsID():
-        #returns a null if Original Post and Post id if yes
-        return self.LonnedPostsID
+        return self.NumOfShares
 
