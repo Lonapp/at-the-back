@@ -8,6 +8,7 @@ MarkupSafe==0.23
 SQLAlchemy==0.9.4
 Werkzeug==0.9.4
 alembic==0.6.5
+gunicorn==19.0.0
 itsdangerous==0.24
-wsgiref==0.1.2
 py2neo==1.6.4
+wsgiref==0.1.2
