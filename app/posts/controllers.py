@@ -51,32 +51,3 @@ def postPost():
 
     # Respond with completed post object
     return json.dumps(post.json)
-
-@posts.route('/<post_id>/comments/<user_id>', methods = ['GET'])
-def getComment(post_id,user_id):
-    pass
-
-@posts.route('/<post_id>/comments/<user_id>/voters', methods = ['GET'])
-def getCommentVoters(post_id, user_id):
-    pass
-
-@posts.route('/<post_id>/comments', methods = ['PUT'])
-def editComment(post_id):
-    #see the user logged in and give them access if the post is their's
-    pass
-
-@posts.route('/<post_id>/comments/<user_id>', methods = ['DELETE'])
-def deleteComment(post_id, user_id):
-    pass
-
-
-@posts.route('/<post_id>/comments/<user_id>', methods = ['POST'])
-def postComment(post_id,user_id):
-    pass
-
-
-@posts.route('/<post_id>/comments/<user_id>/vote', methods = ['POST'])
-def postCommentVote(post_id,user_id):
-    pass
-
-
