@@ -22,15 +22,32 @@ def getUserByUsername(username):
 def hash_pw(pw):
     return sha256(pw).hexdigest()
 
-@users.route('/get', methods = ['GET'])
-def get():
-    args = ['username']
+@users.route('/getByID', methods = ['GET'])
+def getByID():
+    args = ['id']
     result = ''
     try:
         for i in args:
             assert i in request.args, 'missing ' + i
 
-        l = list(graph_db.find("User","username",request.args['username']))
+        l = list(graph_db.find("User","id",request.args['id']))
+
+        if len(l) == 1: result = str(User.fromNode(l[0]))
+        else: result = "user not found"
+
+    except AssertionError, e:
+        result = str(e)
+    return result
+
+@users.route('/getByEmail', methods = ['GET'])
+def getByEmail():
+    args = ['email']
+    result = ''
+    try:
+        for i in args:
+            assert i in request.args, 'missing ' + i
+
+        l = list(graph_db.find("User","email",request.args['email']))
 
         if len(l) == 1: result = str(User.fromNode(l[0]))
         else: result = "user not found"
@@ -41,18 +58,16 @@ def get():
 
 @users.route('/create', methods = ['GET'])
 def create():
-    args = ['username', 'realname', 'email', 'pw', 'phone']
+    args = ['email', 'realname', 'pw', 'phone']
     result = ''
     try:
         for i in args:
             assert i in request.args, 'missing ' + i
 
-        assert len(list(graph_db.find("User","username",request.args['username']))) == 0, "user already exists"
         assert len(list(graph_db.find("User","email",request.args['email']))) == 0, "email already exists"
 
-        u = User(username=request.args['username'],
+        u = User(email=request.args['email'],
                  realname=request.args['realname'],
-                 email=request.args['email'],
                  password=hash_pw(request.args['pw']),
                  phone=request.args['phone'])
 

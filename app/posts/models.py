@@ -25,7 +25,10 @@ class Post(BaseModel):
     #The number of Posts that were lonned from the current one (easy to retreive instead of counting everytime we view)
     numOfShares = db.Column(db.Integer)
 
-    def __init__(self, message, originalPost = None):
+    userID = db.Column(db.Integer)
+
+    def __init__(self, user, message, originalPost = None):
+        self.userID = user
         self.message = message
         self.originalPost = originalPost
         self.numOfShares = 0
@@ -43,38 +46,37 @@ class Post(BaseModel):
                , 'num_of_posts_lonned': str(self.numOfPostsLonned)
                }
 
-    def get_message():
+    def get_message(self):
         return self.message
 
-    def set_message(new_message):
+    def set_message(self, new_message):
         self.message = new_message
         self.save()
 
-    def getUser():
+    def getUser(self):
+        return self.userID
+
+    def getColor(self):
         #void
         pass
 
-    def getColor():
-        #void
-        pass
-
-    def setColor(color):
+    def setColor(self, color):
         #return type bool
         pass
 
-    def addComment(comm):
+    def addComment(self, comm):
         #return type bool
         pass
 
-    def getComment(limit = 2):
+    def getComment(self, limit = 2):
         #return type Comment
         pass
 
-    def getAllComments():
+    def getAllComments(self):
         #return type Comment
         pass
 
-    def getLonnedPosts():
+    def getLonnedPosts(self):
         #return type Post
         LonnedPosts = []
         if self.numOfShares != 0:
@@ -84,23 +86,23 @@ class Post(BaseModel):
         else:
             return LonnedPosts
 
-    def sharePost():
+    def sharePost(self):
         self.numOfShares += 1
         return self
 
-    def hasImage():
+    def hasImage(self):
         #return type bool
         pass
 
-    def getImage():
+    def getImage(self):
         #return type Picture
         pass
 
-    def setImage(caption, pic):
+    def setImage(self, caption, pic):
         #return type bool
         pass
 
-    def getNumOfShares():
+    def getNumOfShares(self):
         #return type int
         return self.NumOfShares
 

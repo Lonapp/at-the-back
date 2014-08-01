@@ -16,13 +16,16 @@ class Comment(BaseModel):
     #not sure about BigInteger. I think it is similar to
     #long int, but may want to double check. Also, we may
     #need to add a foreign key for this.
-    message = db.Column(db.String(MESSEGE_LEN))
     post = db.Column(db.BigInteger, primary_key=True)
     user = db.Column(db.BigInteger, primary_key=True)
     color = db.Column(db.BigInteger)
+    message = db.Column(db.String(MESSEGE_LEN))
     voteCount = db.Column(db.BigInteger)
 
-    def __init__(self, message):
+    def __init__(self, post, user, color, message):
+        self.post = post
+        self.user = user
+        self.color = color
         self.message = message
         self.voteCount = 0
 
@@ -31,39 +34,38 @@ class Comment(BaseModel):
 
     @property
     def json(self):
-        return {"id" : str(self.object_id),
-                "post": str(self.post),
-                "message": str(self.message),
-                "color": str(self.color),
+        return {"post": str(self.post),
                 "user": str(self.user),
+                "color": str(self.color),
+                "message": str(self.message),
                 "voteCount": str(self.voteCount)
                }
 
-    def getMessage():
+    def getMessage(self):
         return self.message
 
-    def setMessage(newMessage):
+    def setMessage(self, newMessage):
         #void
         self.message = newMessage
 
-    def getVoteCount():
+    def getVoteCount(self):
         #return long int
         return self.voteCount
 
-    def setVoteCount(newVoteCount):
+    def setVoteCount(self, newVoteCount):
         #void
         self.voteCount = newVoteCount
 
-    def addCount(num = 1):
+    def addCount(self, num = 1):
         #return bool
         self.voteCount = self.voteCount + num
         return True
 
-    def getColor():
+    def getColor(self):
         return self.color
 
-    def getUser():
+    def getUser(self):
         return self.user
 
-    def getPost():
+    def getPost(self):
         return self.post

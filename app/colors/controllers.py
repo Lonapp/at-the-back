@@ -48,3 +48,8 @@ def create():
     except AssertionError, e:
         result = str(e)
     return result
+
+def isColorValid(id):
+    l = list(graph_db.find("Color","colorid",id))
+    if len(l) == 1: return True
+    else: return False
