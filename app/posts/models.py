@@ -94,7 +94,7 @@ class Post(BaseModel):
         #void
         self.numOfPostsLonned = NumOfLonnedPosts
 
-    def isLonnedPost():
+    def isLonned():
         #returns a null if Original Post and Post id if yes
         return self.isLonnedPost
 
